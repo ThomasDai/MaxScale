@@ -1644,7 +1644,7 @@ GWBUF* MariaDBBackendConnection::gw_generate_auth_response(bool with_ssl, bool s
                                  client_data->db.c_str(),
                                  auth_plugin_name);
 
-    if (capabilities & this->server_capabilities & GW_MYSQL_CAPABILITIES_CONNECT_ATTRS)
+    if ((!with_ssl || ssl_established) && (capabilities & this->server_capabilities & GW_MYSQL_CAPABILITIES_CONNECT_ATTRS))
     {
         bytes += client_data->connect_attrs.size();
     }
